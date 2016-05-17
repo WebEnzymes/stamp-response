@@ -1,0 +1,42 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../promise-polyfill/promise-polyfill-lite.html">
+
+<script>
+  'use strict';
+
+  var WebEnzymes = WebEnzymes || {};
+
+  WebEnzymes.ImportBehavior = {
+
+    _extractImports: function(node) {
+      var nodes = node.querySelectorAll('link[rel=import]');
+      var imports = [];
+      for (var i = 0; i < nodes.length; i++) {
+        var el = nodes[i];
+        if (this.elementMatches(Polymer.StyleUtil.MODULE_STYLES_SELECTOR, el)) {
+          continue;
+        }
+        imports.push({
+          href: el.href || el.getAttribute('href'),
+          async: el.hasAttribute('async')
+        });
+        if (el.parentNode) {
+          el.parentNode.removeChild(el);
+        }
+      }
+      return imports;
+    },
+
+    _bulkImporter: function(imports) {
+      var promises = [];
+      for (var i = 0; i < imports.length; i++) {
+        var imp = imports[i];
+        promises.push(new Promise(function(resolve, reject) {
+          Polymer.Base.importHref(imp.href, resolve, reject, imp.async);
+        }));
+      }
+      return Promise.all(promises);
+    }
+
+  };
+</script>

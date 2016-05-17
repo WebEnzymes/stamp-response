@@ -1,0 +1,257 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../dom-deque/dom-deque.html">
+<link rel="import" href="../import-behavior/import-behavior.html">
+
+<!--
+An type extension ...
+
+Example:
+  <template is="stamp-response"></template>
+
+@demo demo/index.html
+-->
+<dom-module id="stamp-response">
+  <script>
+  'use strict';
+
+  Polymer({
+    is: 'stamp-response',
+    extends: 'template',
+    _template: null,
+    properties: {
+
+      /**
+       * The queue SHOULD contain at most 1 element.
+       * It overrides the default value of the dom-deque element.
+       *
+       * @type {number}
+       */
+      maxSize: {
+        type: Number,
+        value: 1
+      },
+
+      /**
+       * Whether to wait for imports to finish loading and parsing.
+       *
+       * @type {boolean}
+       */
+      awaitImports: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * Whether to ...
+       *
+       * @type {boolean}
+       */
+      autostart: {
+        type: Boolean,
+        value: false,
+      },
+
+      /**
+       * The URL of the resource whose content is stamped.
+       *
+       * @type {string}
+       */
+      url: {
+        type: String,
+        observer: '_urlChanged'
+      },
+
+      /**
+       * The query params for the URL.
+       * An object containing query parameters to be appended to the specified `url` when generating a request.
+       *
+       * @type {object}
+       */
+      params: {
+        type: Object,
+        value: function() {
+          return {};
+        }
+      },
+
+      /**
+       * The HTTP method to use such as 'GET', 'POST', 'PUT', or 'DELETE'.
+       * Default is 'GET'.
+       *
+       * @type {string}
+       */
+      method: {
+        type: String,
+        value: 'GET'
+      },
+
+      /**
+       * HTTP request headers to send.
+       * Default is `{'X-Requested-With': 'XMLHttpRequest'}`.
+       *
+       * @type {object}
+       */
+      headers: {
+        type: Object,
+        value: function() {
+          return {'X-Requested-With': 'XMLHttpRequest'};
+        }
+      },
+
+      /**
+       * A regexp that defines the pattern to rewrite URL to be loaded.
+       * The match is replaced by the value of `urlRewriteReplacement`.
+       *
+       * @type {string}
+       */
+      urlRewritePattern: {
+        type: String
+      },
+
+      _urlRewriteRegex: {
+        computed: '_makeRegExp(urlRewritePattern)'
+      },
+
+      /**
+       * A string that replaces the groups obtain from the execution of the `urlRewritePattern` regex.
+       *
+       * @type {string}
+       */
+      urlRewriteReplacement: {
+        type: String
+      },
+
+      /**
+       * The `iron-ajax` request object used to fetch the content.
+       *
+       * @type {object}
+       */
+      request: {
+        type: Object,
+        observer: '_requestChanged'
+      },
+
+      /**
+       * By default, these events do not bubble largely because the `error` event has special meaning in the window object.
+       * Setting this attribute will cause iron-ajax's request, response, and error events to bubble to the window object.
+       *
+       * @type {boolean}
+       */
+      bubbles: {
+        type: Boolean,
+        value: false
+      },
+
+      _boundHandleResponse: {
+        type: Function,
+        value: function() {
+          return this._handleResponse.bind(this);
+        }
+      },
+
+      _boundHandleError: {
+        type: Function,
+        value: function() {
+          return this._handleError.bind(this);
+        }
+      }
+    },
+
+    behaviors: [
+      DomDeque.DomDequeBehavior,
+      WebEnzymes.ImportBehavior
+    ],
+
+    ready: function () {
+      if (!this.request) {
+        this.request = document.createElement('iron-ajax');
+      }
+    },
+
+    attached: function() {
+      if (this._instances.length === 0) {
+        this.debounce('render', this._render);
+      }
+    },
+
+    _makeRegExp: function(regex) {
+      return RegExp(regex);
+    },
+
+    _requestChanged: function(newRequest, oldRequest) {
+      if (oldRequest) {
+        oldRequest.removeEventListener('response', this._boundHandleResponse);
+        oldRequest.removeEventListener('error', this._boundHandleError);
+      }
+      if (newRequest) {
+        newRequest.addEventListener('response', this._boundHandleResponse);
+        newRequest.addEventListener('error', this._boundHandleError);
+      }
+    },
+
+    _handleResponse: function(event) {
+      var request = event.detail;
+      if (!request.succeeded || !request.response) {
+        this._handleError(event);
+        return;
+      }
+
+      this.cleanCache();
+      this.innerHTML = request.response;
+      this.debounce('render', this._render);
+    },
+
+    _handleError: function(event) {
+      var d = event.detail;
+      var e = d && d.error ? d : {
+        request: d,
+        error: true
+      };
+
+      this.fire('error', e, {bubbles: this.bubbles});
+    },
+
+    _urlChanged: function() {
+
+      if (!this.url) {
+        return;
+      }
+
+      if (!this.request) {
+        this.async(this._urlChanged);
+        return;
+      }
+
+      if (this._firstLoaded || this.autostart) {
+        var url = this.url;
+        if (this._urlRewriteRegex) {
+          url = url.replace(this._urlRewriteRegex, this.urlRewriteReplacement);
+        }
+        var request = this.request;
+        request.auto = false;
+        request.handleAs = 'text';
+        request.method = this.method;
+        for (var k in this.headers) {
+          request.headers[k] = this.headers[k];
+        }
+        for (k in this.params) {
+          request.params[k] = this.params[k];
+        }
+        request.url = url;
+        request.generateRequest();
+      }
+      this._firstLoaded = true;
+    },
+
+    _render: function() {
+      var p = this._bulkImporter(this._extractImports(this._content || this.content));
+      if (this.awaitImports) {
+        p.then(this.pushBack.bind(this));
+      } else {
+        this.pushBack();
+      }
+    }
+  });
+  </script>
+</dom-module>

@@ -1,0 +1,44 @@
+{
+  "name": "import-behavior",
+  "version": "0.0.1",
+  "description": "...",
+  "main": "ImportBehavior.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "webenzymes/import-behavior",
+  "keywords": [
+    "web-components",
+    "html imports",
+    "imports",
+    "link",
+    "html",
+    "bulk",
+    "polymer",
+    "behavior",
+    "web-enzymes"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/webenzymes/import-behavior/issues"
+  },
+  "homepage": "https://github.com/webenzymes/import-behavior#readme",
+  "progress": false,
+  "loglevel": "silent",
+  "depth": 0,
+  "git": {
+    "scripts": {
+      "commit-msg": "./node_modules/.bin/validate-commit-msg --preset eslint $1"
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "bower": "1.7.x",
+    "git-scripts": "0.2.x",
+    "validate-commit": "2.1.x",
+    "polylint": "2.10.x",
+    "polyserve": "0.10.x",
+    "web-component-tester": "4.2.x"
+  },
+  "scripts": {}
+}

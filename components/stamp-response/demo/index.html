@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>web enzymes - stamp response demo</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
+    <link rel="import" href="../../paper-styles/typography.html">
+    <link rel="import" href="../../paper-styles/color.html">
+    <link rel="import" href="../../iron-location/iron-location.html">
+    <link rel="import" href="../stamp-response.html">
+    <style>
+      iron-location + * {
+        display: block;
+        padding-top: 12px;
+      }
+    </style>
+  </head>
+  <body unresolved>
+  <url-bar></url-bar>
+  <h4>Autoload a static file</h4>
+  <demo-snippet>
+    <template>
+      <template is="stamp-response" url="load/foo.html" autostart>
+        <span>Initial content</span>
+      </template>
+    </template>
+  </demo-snippet>
+
+  <h4>Autoload a static file containing HTML imports (i.e., lazily import element definitions, thus stamp them)</h4>
+  <demo-snippet>
+    <template>
+      <template is="stamp-response" url="load/demo-foo.html" autostart>
+        <span>Initial content</span>
+      </template>
+    </template>
+  </demo-snippet>
+
+  <h4>Fetch various types of external content</h4>
+  <demo-snippet class="centered">
+    <template>
+      <template is="dom-bind">
+        <a href="pjax.html">PJAX</a> -
+        <a href="foo.html">Foo</a> -
+        <a href="demo-foo.html">x-demo-foo</a> -
+        <a href="page1.html">Page1</a> -
+        <a href="page2.html">Page2</a>
+
+        <iron-location path="{{path}}"></iron-location>
+        <!-- INSERTION POINT -->
+        <template is="stamp-response"
+                  url="[[path]]"
+                  url-rewrite-pattern="^(.*)(\/)(.*)$"
+                  url-rewrite-replacement="$1$2load$2$3">
+          <div>Home content.</div>
+        </template>
+      </template>
+    </template>
+  </demo-snippet>
+
+  </body>
+</html>

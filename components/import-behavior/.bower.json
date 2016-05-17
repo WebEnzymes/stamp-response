@@ -1,0 +1,13 @@
+{
+  "name": "import-behavior",
+  "homepage": "https://github.com/webenzymes/import-behavior",
+  "_release": "f853252cfd",
+  "_resolution": {
+    "type": "branch",
+    "branch": "develop",
+    "commit": "f853252cfdcf67bb14bb176d047e7585caaa5b33"
+  },
+  "_source": "git://github.com/webenzymes/import-behavior.git",
+  "_target": "develop",
+  "_originalSource": "webenzymes/import-behavior"
+}

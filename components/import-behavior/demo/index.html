@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>web enzymes - import behavior demo</title>
+
+    <link rel="import" href="../import-behavior.html">
+
+    <style></style>
+  </head>
+  <body>
+    <x-importer></x-importer>
+    <dom-module id="x-importer">
+      <template>
+        <style></style>
+      </template>
+
+      <script>
+      window.addEventListener('WebComponentsReady', function() {
+        Polymer({
+          is: 'x-importer',
+          properties: {},
+          behaviors: [
+            WebEnzymes.ImportBehavior
+          ]
+        });
+      });
+      </script>
+    </dom-module>
+  </body>
+</html>

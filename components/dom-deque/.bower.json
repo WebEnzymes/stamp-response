@@ -1,0 +1,13 @@
+{
+  "name": "dom-deque",
+  "homepage": "https://github.com/leogr/dom-deque",
+  "_release": "f315bd0863",
+  "_resolution": {
+    "type": "branch",
+    "branch": "develop",
+    "commit": "f315bd0863a7ef9edc7dad722b780e23b6cba714"
+  },
+  "_source": "git://github.com/leogr/dom-deque.git",
+  "_target": "develop",
+  "_originalSource": "leogr/dom-deque"
+}
