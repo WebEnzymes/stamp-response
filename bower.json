@@ -1,0 +1,42 @@
+{
+  "name": "stamp-response",
+  "description": "...",
+  "main": "stamp-response.html",
+  "license": "MIT",
+  "authors": [
+    "Leonardo Grasso <me@leonardograsso.com> (http://github.com/leogr)",
+    "Leonardo Di Donato <leodidonato@gmail.com> (http://github.com/leodido)"
+  ],
+  "keywords": [
+    "web-components",
+    "web-enzymes",
+    "template",
+    "type",
+    "extension",
+    "remote",
+    "fetch",
+    "XMLHttpRequest",
+    "pjax",
+    "ajax",
+    "response",
+    "DOM"
+  ],
+  "homepage": "http://github.com/webenzymes/stamp-response#readme",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/webenzymes/stamp-response.git"
+  },
+  "dependencies": {
+    "polymer": "polymer/polymer#^1.0.0",
+    "dom-deque": "leogr/dom-deque#develop",
+    "import-behavior": "webenzymes/import-behavior#develop",
+    "iron-ajax": "polymerelements/iron-ajax#^1.2.0"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

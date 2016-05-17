@@ -1,0 +1,46 @@
+{
+  "name": "stamp-response",
+  "version": "0.0.1",
+  "description": "...",
+  "main": "stamp-response.html",
+  "repository": "webenzymes/stamp-response",
+  "keywords": [
+    "web-components",
+    "web-enzymes",
+    "template",
+    "type extension",
+    "remote",
+    "fetch",
+    "XMLHttpRequest",
+    "pjax",
+    "ajax",
+    "response",
+    "DOM"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/webenzymes/stamp-response/issues"
+  },
+  "homepage": "https://github.com/webenzymes/stamp-response#readme",
+  "progress": false,
+  "loglevel": "silent",
+  "depth": 0,
+  "git": {
+    "scripts": {
+      "commit-msg": "./node_modules/.bin/validate-commit-msg --preset eslint $1"
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "bower": "1.7.x",
+    "git-scripts": "0.2.x",
+    "polylint": "2.10.x",
+    "polyserve": "0.10.x",
+    "validate-commit": "2.1.x",
+    "web-component-tester": "4.2.x"
+  },
+  "scripts": {
+    "serve": "polyserve",
+    "lint": "polylint -b bower_components/ --no-recursion --index stamp-response.html"
+  }
+}
