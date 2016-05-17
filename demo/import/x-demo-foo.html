@@ -1,0 +1,28 @@
+<dom-module id="x-demo-foo">
+  <template>
+    <div>
+      Hi! I'm x-demo-foo
+    </div>
+    <content></content>
+  </template>
+  <script>
+    Polymer({
+      is: 'x-demo-foo',
+      registered: function() {
+        console.log('<x-demo-foo>', 'registered');
+      },
+      created: function() {
+        console.log('<x-demo-foo>','created');
+      },
+      attached: function() {
+        console.log('<x-demo-foo>','attached');
+      },
+      detached: function() {
+        console.log('<x-demo-foo>','detached');
+      },
+      ready: function() {
+        console.log('<x-demo-foo>','ready');
+      }
+    });
+  </script>
+</dom-module>
