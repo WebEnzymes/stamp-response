@@ -41,6 +41,9 @@
   },
   "scripts": {
     "serve": "polyserve",
-    "lint": "polylint -b bower_components/ --no-recursion --index stamp-response.html"
+    "lint": "polylint -b bower_components/ --no-recursion --index stamp-response.html",
+    "docs": "npm run serve -- -o index.html",
+    "demo": "npm run serve -- -o demo/index.html",
+    "test": "npm run serve -- -o test/index.html"
   }
 }
