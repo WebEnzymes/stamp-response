@@ -50,8 +50,7 @@
         <template is="stamp-response"
                   url="[[path]]"
                   url-rewrite-pattern="^(.*)(\/)(.*)$"
-                  url-rewrite-substitution="$1$2load$2$3"
-                  >
+                  url-rewrite-replacement="$1$2load$2$3">
           Pjax Home! (pre stamped)
         </template>
       </template>

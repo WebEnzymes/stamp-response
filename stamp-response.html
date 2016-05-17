@@ -101,7 +101,7 @@ Example:
 
       /**
        * A regexp that defines the pattern to rewrite URL to be loaded.
-       * The match is replaced by the value of `urlRewriteSubstitution`.
+       * The match is replaced by the value of `urlRewriteReplacement`.
        *
        * @type {string}
        */
@@ -114,11 +114,11 @@ Example:
       },
 
       /**
-       * A string that replaces the substring received from the `urlRewritePattern`.
+       * A string that replaces the groups obtain from the execution of the `urlRewritePattern` regex.
        *
        * @type {string}
        */
-      urlRewriteSubstitution: {
+      urlRewriteReplacement: {
         type: String
       },
 
@@ -226,7 +226,7 @@ Example:
       if (this._firstLoaded || this.autostart) {
         var url = this.url;
         if (this._urlRewriteRegex) {
-          url = url.replace(this._urlRewriteRegex, this.urlRewriteSubstitution);
+          url = url.replace(this._urlRewriteRegex, this.urlRewriteReplacement);
         }
         var request = this.request;
         request.auto = false;
