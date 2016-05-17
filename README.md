@@ -2,6 +2,8 @@
 
 > ...
 
+[Demo + API docs](http://webenzymes.github.io/stamp-response)
+
 ## Install
 
 ...

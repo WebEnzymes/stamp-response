@@ -33,13 +33,17 @@
   "dependencies": {},
   "devDependencies": {
     "bower": "1.7.x",
+    "git-directory-deploy": "1.5.x",
     "git-scripts": "0.2.x",
     "polylint": "2.10.x",
     "polyserve": "0.10.x",
+    "shx": "0.1.x",
     "validate-commit": "2.1.x",
     "web-component-tester": "4.2.x"
   },
   "scripts": {
+    "gh-pages": "shx mkdir -p gh-pages/components/stamp-response && shx cp -R bower_components/* gh-pages/components && shx ls *.{html,js} | xargs cp -t gh-pages/components/stamp-response && shx cp -R demo gh-pages/components/stamp-response && shx echo '<meta http-equiv=refresh content=\"0;URL=components/stamp-response/\">' > gh-pages/index.html && shx chmod +x node_modules/.bin/git-directory-deploy",
+    "postgh-pages": "git-directory-deploy -d gh-pages -b gh-pages -m 'Deploy gh-pages'; shx rm -rf gh-pages",
     "serve": "polyserve",
     "lint": "polylint -b bower_components/ --no-recursion --index stamp-response.html",
     "docs": "npm run serve -- -o index.html",
