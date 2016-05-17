@@ -32,6 +32,14 @@
     "import-behavior": "webenzymes/import-behavior#develop",
     "iron-ajax": "polymerelements/iron-ajax#^1.2.0"
   },
+  "devDependencies": {
+    "iron-component-page": "polymerelements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.0",
+    "paper-styles": "polymerelements/paper-styles#^1.0.0",
+    "test-fixture": "polymerelements/test-fixture#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
   "ignore": [
     "**/.*",
     "node_modules",
