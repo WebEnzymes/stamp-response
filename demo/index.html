@@ -12,23 +12,28 @@
     <link rel="import" href="../../paper-styles/color.html">
     <link rel="import" href="../../iron-location/iron-location.html">
     <link rel="import" href="../stamp-response.html">
-    <style></style>
+    <style>
+      iron-location + * {
+        display: block;
+        padding-top: 12px;
+      }
+    </style>
   </head>
   <body unresolved>
   <url-bar></url-bar>
-  <h4>Auto load static file</h4>
+  <h4>Autoload a static file</h4>
   <demo-snippet>
     <template>
-      <template is="stamp-response"  url="load/foo.html" autostart>
+      <template is="stamp-response" url="load/foo.html" autostart>
         <span>Initial content</span>
       </template>
     </template>
   </demo-snippet>
 
-  <h4>Auto load static file with lazy import</h4>
+  <h4>Autoload a static file containing HTML imports (i.e., lazily import element definitions, thus stamp them)</h4>
   <demo-snippet>
     <template>
-      <template is="stamp-response"  url="load/demo-foo.html" autostart>
+      <template is="stamp-response" url="load/demo-foo.html" autostart>
         <span>Initial content</span>
       </template>
     </template>
@@ -44,20 +49,17 @@
         <a href="page1.html">Page1</a> -
         <a href="page2.html">Page2</a>
 
-        <br>
-
         <iron-location path="{{path}}"></iron-location>
+        <!-- INSERTION POINT -->
         <template is="stamp-response"
                   url="[[path]]"
                   url-rewrite-pattern="^(.*)(\/)(.*)$"
                   url-rewrite-replacement="$1$2load$2$3">
-          Pjax Home! (pre stamped)
+          <div>Home content.</div>
         </template>
       </template>
     </template>
   </demo-snippet>
-
-
 
   </body>
 </html>
