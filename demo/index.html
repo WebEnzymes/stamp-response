@@ -54,7 +54,7 @@
         <template is="stamp-response"
                   url="[[path]]"
                   url-rewrite-pattern="^(.*)(\/)(.*)$"
-                  url-rewrite-replacement="$1$2load$2$3">
+                  url-rewrite-replacement="$1$2load$2$3" await-imports>
           <div>Home content.</div>
         </template>
       </template>

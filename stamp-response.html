@@ -197,7 +197,7 @@ Example:
         return;
       }
 
-      this.cleanCache();
+      this.untemplatize(this);
       this.innerHTML = request.response;
       this.debounce('render', this._render);
     },
@@ -245,10 +245,11 @@ Example:
     },
 
     _render: function() {
-      var p = this._bulkImporter(this._extractImports(this._content || this.content));
+      var imports = this._extractImports(this._content || this.content);
       if (this.awaitImports) {
-        p.then(this.pushBack.bind(this));
+        this._bulkImporter(imports, this.pushBack.bind(this));
       } else {
+        this._bulkImporter(imports);
         this.pushBack();
       }
     }
